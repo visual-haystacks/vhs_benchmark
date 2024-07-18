@@ -1,0 +1,5 @@
+_target_: solvers.llava_solver.LLaVASolver
+name: LLaVA-v1.5-7B
+huggingface_model_id: llava-hf/llava-1.5-7b-hf
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"

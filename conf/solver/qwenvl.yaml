@@ -1,0 +1,5 @@
+_target_: solvers.qwenvl_solver.QwenVLSolver
+name: QwenVL-Chat
+huggingface_model_id: Qwen/Qwen-VL-Chat
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"

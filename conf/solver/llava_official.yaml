@@ -1,0 +1,5 @@
+_target_: solvers.llava_official_solver.LLaVAOfficialSolver
+name: LLaVA-v1.5-7B-Official
+huggingface_model_id: liuhaotian/llava-v1.5-7b
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"

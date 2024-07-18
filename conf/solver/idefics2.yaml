@@ -1,0 +1,5 @@
+_target_: solvers.idefics2_solver.IDEFICS2Solver
+name: idefics2
+huggingface_model_id: HuggingFaceM4/idefics2-8b
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"

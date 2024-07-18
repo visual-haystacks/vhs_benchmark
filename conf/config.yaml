@@ -1,0 +1,15 @@
+defaults:
+  - solver: gpt4o
+  - _self_
+
+basic:
+  debug_mode: False
+  mode: single_needle
+  image_root: dataset
+  test_file_base: dataset/VHs_qa/VHs_full/single_needle
+  output_dir: output/${solver.name}_${basic.mode}/result
+  image_counts: ["oracle", 2, 3, 5, 10, 20, 50, 100]
+
+hydra:
+  run:
+    dir: output/${solver.name}_${basic.mode}/logs

@@ -1,0 +1,5 @@
+_target_: solvers.llama_solver.LLamaSolver
+name: language_only_baseline
+huggingface_model_id: meta-llama/Meta-Llama-3-8B-Instruct # ensure you have LLama3's access
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"

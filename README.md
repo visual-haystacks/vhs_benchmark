@@ -2,8 +2,9 @@
 
 [![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-310/)
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)  [![arXiv](https://img.shields.io/badge/arXiv-2311.16090-red)](https://arxiv.org/abs/2407.13766) 
 
-This repo provides the benchmark toolkit of our proposed Visual Haystacks (VHs) dataset: [Visual Haystacks: Answering Harder Questions About Sets of Images](https://arxiv.org/abs/xxxx.xxxxx). Check out project page [here](https:/xxxxxx.github.io/)!
+This repo provides the benchmark toolkit of our proposed Visual Haystacks (VHs) dataset: [Visual Haystacks: Answering Harder Questions About Sets of Images](https://arxiv.org/abs/2407.13766). Check out project page [here](https://visual-haystacks.github.io/)!
 
 **Authors**: [Tsung-Han Wu](https://tsunghan-wu.github.io/), [Giscard Biamby](https://scholar.google.com/citations?user=s0Fof5IAAAAJ&hl=en), [Jerome Quenum](https://people.eecs.berkeley.edu/~jquenum/), [Ritwik Gupta](https://ritwikgupta.me/), [Joseph E. Gonzalez](https://people.eecs.berkeley.edu/~jegonzal/), [Trevor Darrell](https://people.eecs.berkeley.edu/~trevor/), [David M. Chan](https://dchan.cc/) at UC Berkeley. 
 
@@ -46,23 +47,25 @@ pip3 install -r requirements.txt
 ```
 
 2. **Data Preparation**
-  - Download the VQA questions from [🤗 tsunghanwu/visual_haystacks](https://huggingface.co/datasets/tsunghanwu/visual_haystacks). Our data structure is similar to LLaVA's one, which is easy to play with. `huggingface-cli download --repo-type dataset tsunghanwu/visual_haystacks --local-dir dataset/VHs_qa`
-  - Download the COCO 2017 dataset and organize it as follows, with the default root directory ./dataset/coco:
-
-```
-dataset/
-├── coco
-│   ├── annotations
-│   ├── test2017
-│   └── val2017
-└── VHs_qa
-    ├── VHs_full
-    │   ├── multi_needle
-    │   └── single_needle
-    └── VHs_small
-        ├── multi_needle
-        └── single_needle
-```
+  - Download the VQA questions from [🤗 tsunghanwu/visual_haystacks](https://huggingface.co/datasets/tsunghanwu/visual_haystacks). Our data structure is similar to LLaVA's one, which is easy to play with.
+    ```
+    huggingface-cli download --repo-type dataset tsunghanwu/visual_haystacks --local-dir dataset/VHs_qa
+    ```
+  - Download the COCO 2017 dataset and organize it as follows, with the default root directory `./dataset/coco`:
+    ```
+    dataset/
+    ├── coco
+    │   ├── annotations
+    │   ├── test2017
+    │   └── val2017
+    └── VHs_qa
+        ├── VHs_full
+        │   ├── multi_needle
+        │   └── single_needle
+        └── VHs_small
+            ├── multi_needle
+            └── single_needle
+    ```
 
 ### Execution
 
@@ -105,7 +108,7 @@ If you use our work or our implementation in this repo, or find them helpful, pl
 @article{wu2024visual,
   title={Visual Haystacks: Answering Harder Questions About Sets of Images},
   author={Wu, Tsung-Han and Biamby, Giscard and and Quenum, Jerome and Gupta, Ritwik and Gonzalez, Joseph E and Darrell, Trevor and Chan, David M},
-  journal={arXiv preprint arXiv:xxxx.xxxxx},
+  journal={arXiv preprint arXiv:2407.13766},
   year={2024}
 }
 ```

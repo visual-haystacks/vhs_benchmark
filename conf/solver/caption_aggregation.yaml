@@ -1,6 +1,5 @@
 _target_: solvers.llama_llava_solver.LLamaLLaVASolver
-name: caption_aggregation
-vision_huggingface_model_id: llava-hf/llava-1.5-7b-hf
-language_hugging_face_model_id: meta-llama/Meta-Llama-3-8B-Instruct # ensure you have LLama3's access
-image_root: "captions_v2"
+name: qwenvl_llava
+language_hugging_face_model_id: meta-llama/Meta-Llama-3.1-8B-Instruct # ensure you have LLama3's access
+image_root: "captions_qwen2vl_path"
 debug_mode: "${basic.debug_mode}"

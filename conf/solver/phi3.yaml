@@ -1,0 +1,5 @@
+_target_: solvers.phi3_solver.Phi3Solver
+name: Phi-3-vision-128k-instruct_new
+huggingface_model_id: microsoft/Phi-3-vision-128k-instruct
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"

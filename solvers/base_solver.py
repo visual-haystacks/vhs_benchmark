@@ -56,8 +56,12 @@ class Solver:
             test_data = test_data[:1]
 
         for idx, entry in tqdm(enumerate(test_data), total=len(test_data)):
+            output_fname = os.path.join(output_dir, f"{idx:03d}.json")
             # Single Needle: For the image with [xxx], is there a [yyy]?
-            prompt = entry["conversations"][0]["value"] + " Answer Yes or No."
+            prompt = (
+                "You are given a set of images. Please answer the following question in Yes or No: "
+                + entry["conversations"][0]["value"]
+            )
             # shuffle input iamge orderings
             num_images = len(entry["pos_image"]) + len(entry["neg_image"])
             interval = max(int(num_images // 10), 1)
@@ -78,19 +82,27 @@ class Solver:
                 if "response" not in entry:
                     entry["response"] = []
                 entry["response"].append(response)
-            with open(os.path.join(output_dir, f"{idx:03d}.json"), "w") as f:
-                json.dump(entry, f)
-        self.postprocessing()
+
+            with open(output_fname, "w") as f:
+                json.dump(entry, f, indent=2)
+        # self.postprocessing()
 
     def run_fast(self, test_file, output_dir):
         self.preprocessing()
         test_data = json.load(open(test_file, "r"))
         if self.debug_mode:
-            test_data = test_data[:1]
+            test_data = test_data[::3]
 
         for idx, entry in tqdm(enumerate(test_data), total=len(test_data)):
-            # Single Needle: For the image with [xxx], is there a [yyy]?
-            prompt = entry["conversations"][0]["value"] + " Answer Yes or No."
+
+            output_fname = os.path.join(output_dir, f"{idx:03d}.json")
+            # if os.path.exists(output_fname):
+            #     continue
+
+            prompt = (
+                "You are given a set of images. Please answer the following question in Yes or No: "
+                + entry["conversations"][0]["value"]
+            )
             # shuffle input iamge orderings
             image_lists = entry["pos_image"] + entry["neg_image"]
             random.shuffle(image_lists)
@@ -106,6 +118,6 @@ class Solver:
                 "response": response,
                 "log": log_msg,
             }
-            with open(os.path.join(output_dir, f"{idx:03d}.json"), "w") as f:
-                json.dump(entry, f)
-        self.postprocessing()
+            with open(output_fname, "w") as f:
+                json.dump(entry, f, indent=2)
+        # self.postprocessing()

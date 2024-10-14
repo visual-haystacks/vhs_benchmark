@@ -1,6 +1,6 @@
 _target_: solvers.gpt4o_solver.GPT4OSolver
 name: gpt-4o-2024-05-13
-low_res_mode: True
+low_res_mode: False
 model: "gpt-4o-2024-05-13"
 organization: "***"  # replace with a specific OpenAI organization ID if required
 api_key: "***"                # replace with your OpenAI API key

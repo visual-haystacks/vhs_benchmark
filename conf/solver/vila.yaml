@@ -1,0 +1,5 @@
+_target_: solvers.vila_solver.ViLASolver
+name: longvila_8b
+huggingface_model_id: Efficient-Large-Model/Llama-3-LongVILA-8B-1024Frames
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"

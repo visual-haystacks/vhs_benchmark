@@ -1,0 +1,5 @@
+_target_: solvers.mplug_owl_solver.MPLUGSolver
+name: mplug_owl3_new
+huggingface_model_id: mPLUG/mPLUG-Owl3-7B-240728
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"

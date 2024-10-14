@@ -1,0 +1,5 @@
+_target_: solvers.llava_next_solver.LLaVANextSolver
+name: llava_next_new
+huggingface_model_id: llava-hf/llava-v1.6-mistral-7b-hf
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"

@@ -15,6 +15,11 @@ class GeminiSolver(Solver):
         self.solver_name = gemini_config.get("name", "Gemini-1.5-pro")
         self.gemini_config = gemini_config
         genai.configure(api_key=gemini_config.get("api_key"))
+        """
+        for m in genai.list_models():
+            if 'generateContent' in m.supported_generation_methods:
+                print(m.name)
+        """
         self.model = genai.GenerativeModel(
             gemini_config.get("model", "gemini-1.5-pro-001")
         )
@@ -28,10 +33,15 @@ class GeminiSolver(Solver):
         content = []
         # enable this line if we're running gemini-1.0
         # image_paths = image_paths[:16]
+        # f = genai.upload_file(path); m.generate_content(['tell me about this file:', f])
         if "gemini-1.0" in self.gemini_config.get("model", "gemini-1.5-pro-001"):
             image_paths = image_paths[:16]
         for idx, image_path in enumerate(image_paths):
-            content.append(Image.open(image_path))
+            if len(image_paths) <= 100:
+                content.append(Image.open(image_path))
+            else:
+                f = genai.upload_file(image_path)
+                content.append(f)
         content.append(prompt)
         # Hack to avoid the issue with the image being blocked
         # safety_settings = [
@@ -58,18 +68,20 @@ class GeminiSolver(Solver):
         # ]
 
         pred_ans = ""
+
         for _ in range(5):
             try:
                 # response = self.model.count_tokens(content)
                 # print(f"Prompt Character Count: {response.total_billable_characters}")
                 response = self.model.generate_content(content)
-                usage = SimpleNamespace(
-                    prompt_tokens=response.usage_metadata.prompt_token_count,
-                    completion_tokens=response.usage_metadata.candidates_token_count,
-                )
-                self.gemini_usage.update(usage)
+
+                # usage = SimpleNamespace(
+                #     prompt_tokens=response.usage_metadata.prompt_token_count,
+                #     completion_tokens=response.usage_metadata.candidates_token_count,
+                # )
+                # self.gemini_usage.update(usage)
                 if len(response.candidates) > 0:
-                    pred_ans = response.text
+                    pred_ans = response.candidates[0].content.parts[0].text
                 else:
                     print(f"Rejected by the model: {response.prompt_feedback}")
                 break

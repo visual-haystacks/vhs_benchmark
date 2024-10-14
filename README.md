@@ -1,14 +1,14 @@
-# Visual Haystacks: Answering Harder Questions About Sets of Images
+# Visual Haystacks: A Vision-Centric Needle-In-A-Haystack Benchmark
 
 [![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-310/)
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)  [![arXiv](https://img.shields.io/badge/arXiv-2311.16090-red)](https://arxiv.org/abs/2407.13766) 
 
-This repo provides the benchmark toolkit of our proposed Visual Haystacks (VHs) dataset: [Visual Haystacks: Answering Harder Questions About Sets of Images](https://arxiv.org/abs/2407.13766). Check out project page [here](https://visual-haystacks.github.io/)!
+This repo provides the benchmark toolkit of our proposed Visual Haystacks (VHs) dataset: [Visual Haystacks: A Vision-Centric Needle-In-A-Haystack Benchmark](https://arxiv.org/abs/2407.13766). Check out project page [here](https://visual-haystacks.github.io/)!
 
 **Authors**: [Tsung-Han Wu](https://tsunghan-wu.github.io/), [Giscard Biamby](https://scholar.google.com/citations?user=s0Fof5IAAAAJ&hl=en), [Jerome Quenum](https://people.eecs.berkeley.edu/~jquenum/), [Ritwik Gupta](https://ritwikgupta.me/), [Joseph E. Gonzalez](https://people.eecs.berkeley.edu/~jegonzal/), [Trevor Darrell](https://people.eecs.berkeley.edu/~trevor/), [David M. Chan](https://dchan.cc/) at UC Berkeley. 
 
-Visual Haystacks (VHs) is a "visual-centric" Needle-In-A-Haystack (NIAH) benchmark specifically designed to evaluate the capabilities of Large Multimodal Models (LMMs) in visual retrieval and reasoning over sets of unrelated images. Unlike conventional NIAH challenges that center on text-related retrieval and understanding with limited anecdotal examples, VHs contains a much larger number of examples and focuses on "simple visual tasks", providing a more accurate reflection of LMMs' capabilities when dealing with extensive visual context.
+Visual Haystacks (VHs) is a "vision-centric" Needle-In-A-Haystack (NIAH) benchmark specifically designed to evaluate the capabilities of Large Multimodal Models (LMMs) in visual retrieval and reasoning over sets of unrelated images. Unlike conventional NIAH challenges that center on artificial, text-related retrieval and understanding with limited anecdotal examples, VHs contains a much larger number of examples and focuses on "simple visual tasks", providing a more accurate reflection of LMMs' capabilities when dealing with extensive visual context.
 
 We encourage researchers and practitioners in the field of ML-CV/NLP to engage with the Visual Haystacks (VHs) benchmark. By leveraging this dataset, we can collectively push the envelope in developing LMMs that are not only proficient in text but also excel in processing and reasoning with long-context visual information. Check out VHs at [🤗 tsunghanwu/visual_haystacks](https://huggingface.co/datasets/tsunghanwu/visual_haystacks)!
 
@@ -17,24 +17,36 @@ We encourage researchers and practitioners in the field of ML-CV/NLP to engage w
 VHs consists of approximately 1K binary visual question-answer pairs for sets containing differeing numbers images, with each set ranging from 1 to 10K images. Each question is about the presence of an object in some relevant images: the model needs to first retrieve these needle images in a haystack of data and then answer the corresponding question. The dataset is carefully curated to ensure that guessing or relying on common sense reasoning without viewing the image results in a 50% accuracy rate. The dataset is derived from the COCO dataset and includes two types of challenges: the single-needle challenge and the multi-needle challenge.
 
 -   **Single-Needle Challenge**: Only a single needle image exists in the haystack of images. The question is framed as, "For the image with the anchor object, is there a target object?"
--   **Multi-Needle Challenge**: Two to five needle images exist in the haystack of images. The question is framed as either, "For all images with the anchor object, do all of them contain the target object?" or "For all images with the anchor object, do any of them contain the target object?"
+-   **Multi-Needle Challenge**: Two or three needle images exist in the haystack of images. The question is framed as either, "For all images with the anchor object, do all of them contain the target object?" or "For all images with the anchor object, do any of them contain the target object?"
 
 ![](assets/fig1.png)
 
 ## :rocket: Interesting Applications/Findings
 
-1. **Enhanced Evaluation for LMMs**: VHs reveals that existing open-source and proprietary LMMs struggle significantly with long-context visual input compared to long-context textual information. This highlights a critical gap in the current capabilities of LMMs.
-2. **Phenomena in Visual Domain**: We identify a ["lost-in-the-middle"](https://arxiv.org/abs/2307.03172) style phenomenon in the visual domain. Future LMM solutions might need to consider this issue when training their models.
-3. **MIRAGE**: Our proposed method, MIRAGE, is a pioneering open-source visual-RAG solution designed to address these problems effectively. (We will release the code soon!)
+0. **Context Limitations**: Current LMMs cannot process more than 100 images due to API rejections (payload exceeding limits), context length overflows, or memory constraints on 4 A100 GPUs.
+
+1. **Susceptibility to Visual Distractors**: While LMMs can perform nearly as well as specialized detectors on single-image tasks, their effectiveness decreases significantly as the number of images increases.
+![](assets/fig2.png)
+
+2. **Challenges in Cross-Image Reasoning**: LMMs experience substantial performance declines when required to integrate information across multiple key images; reintroducing noisy images exacerbates this decline even further.
+![](assets/fig3.png)
+
+3. **Positional Biases**: LMMs exhibit various positional biases—information placed at different positions within the context window yields different results. For instance, GPT-4 exhibits a ["lost-in-the-middle"](https://arxiv.org/abs/2307.03172) phenomenon in the visual domain, Gemini 1.5 Pro shows a preference for images at the beginning, and open-source models often favor the last image when given a small set.
+![](assets/fig4.png)
+
+In light of these observations, we introduce MIRAGE-8.3B, a pioneering open-source visual-RAG solution capable of handling up to 10,000 image inputs and somewhat mitigating the above challenges. We will to release the code and checkpoint by October 21, 2024!
 
 ## :rotating_light: Status Updates
 
-- **07/18/2024:** We provide scripts to run inference for various methods on VHs, including GPT-4, Gemini, Claude, LLaVA, QwenVL, Idefics2, and more. 
-- Upcoming release plans:
-  - [ ] Update logs/results for the latest model iterations. (The [experimental results](https://drive.google.com/drive/folders/1jvu6H40aQx3yXbM6AZ0mDCltnWIOOxrz?usp=sharing) reported in our paper was collected during this April and May. We recently found that some proprietary models have improved a lot.)
-  - [ ] Publish the MIRAGE codebase.
+### Recent Activities:
+- **10/14/2024:** We've updated our datasets to enhance diversity and balance. In this version, we include GPT-4o, Gemini 1.5 Pro, Claude 3.5 Sonnet, LLaVA-Next, Qwen2-VL-7B-Instruct, Idefics-3, InternVL2-8B, Phi3-vision, mPLUG-OWL3, and LongViLA.
+- **07/18/2024:** Scripts were released for running inference using various models on the Visual Haystacks (VHs) benchmark, including GPT-4, Gemini, Claude, LLaVA, QwenVL, Idefics2, and others.
 
-We encourage those working on multi-image reasoning to contact us to merge their latest model into this repo!
+### Upcoming Releases and TODOs:
+- [ ] Publish the MIRAGE codebase by October 21, 2024.
+- [ ] Update logs and results for the latest model iterations.
+
+We invite collaborators working on multi-image reasoning to reach out for integrating their latest models into our repository!
 
 ## :wrench: Development Kits
 
@@ -43,8 +55,15 @@ We encourage those working on multi-image reasoning to contact us to merge their
 1. **Package Installation**
 
 ```sh
+# Create conda environment
+conda create --name vhs python=3.10
+conda activate vhs
+# Install packages and then flash-attn separately
 pip3 install -r requirements.txt
+pip3 install flash-attn --no-build-isolation --no-cache-dir
 ```
+
+* Note: [Idefics-3](https://huggingface.co/HuggingFaceM4/Idefics3-8B-Llama3) and [LongViLA](https://github.com/NVlabs/VILA) requires additional installation steps. Please refer to their official instructions.
 
 2. **Data Preparation**
   - Download the VQA questions from [🤗 tsunghanwu/visual_haystacks](https://huggingface.co/datasets/tsunghanwu/visual_haystacks). Our data structure is similar to LLaVA's one, which is easy to play with.
@@ -106,7 +125,7 @@ hydra:
 If you use our work or our implementation in this repo, or find them helpful, please consider giving a citation.
 ```
 @article{wu2024visual,
-  title={Visual Haystacks: Answering Harder Questions About Sets of Images},
+  title={Visual Haystacks: A Vision-Centric Needle-In-A-Haystack Benchmark},
   author={Wu, Tsung-Han and Biamby, Giscard and and Quenum, Jerome and Gupta, Ritwik and Gonzalez, Joseph E and Darrell, Trevor and Chan, David M},
   journal={arXiv preprint arXiv:2407.13766},
   year={2024}

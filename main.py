@@ -27,30 +27,32 @@ def main(cfg: DictConfig) -> None:
     logging.info("Solver instantiated successfully.")
 
     for img in cfg.basic.image_counts:
-        try:
-            test_file = os.path.join(
-                cfg.basic.test_file_base, f"visual_haystack_{img}.json"
-            )
-            sub_dir_name = os.path.join(cfg.basic.output_dir, f"{img}_images")
-            os.makedirs(sub_dir_name, exist_ok=True)
-            logging.info(
-                f"Processing case with {img} images: data written to {sub_dir_name}"
-            )
-            if cfg.basic.mode == "multi_needle":
-                solver.run_fast(test_file, sub_dir_name)
-                logging.info(
-                    f"Running evaluation for ({cfg.solver.name},{cfg.basic.mode})"
-                )
-                run_eval(sub_dir_name, cfg.basic.mode)
-            else:
+        test_file = os.path.join(
+            cfg.basic.test_file_base, f"visual_haystack_{img}.json"
+        )
+        sub_dir_name = os.path.join(cfg.basic.output_dir, f"{img}_images")
+        os.makedirs(sub_dir_name, exist_ok=True)
+        logging.info(
+            f"Processing case with {img} images: data written to {sub_dir_name}"
+        )
+        if cfg.basic.mode == "multi_needle":
+            assert cfg.basic.position_exp is False
+            solver.run_fast(test_file, sub_dir_name)
+            logging.info(f"Running evaluation for ({cfg.solver.name},{cfg.basic.mode})")
+            run_eval(sub_dir_name, cfg.basic.mode)
+        else:
+            if cfg.basic.position_exp:
                 solver.run_detailed(test_file, sub_dir_name)
                 logging.info(
                     f"Running evaluation for ({cfg.solver.name},{cfg.basic.mode})"
                 )
                 run_detailed_eval(sub_dir_name, cfg.basic.mode)
-
-        except Exception as e:
-            logging.error(f"An error occurred: {e}", exc_info=True)
+            else:
+                solver.run_fast(test_file, sub_dir_name)
+                logging.info(
+                    f"Running evaluation for ({cfg.solver.name},{cfg.basic.mode})"
+                )
+                run_eval(sub_dir_name, cfg.basic.mode)
 
 
 if __name__ == "__main__":

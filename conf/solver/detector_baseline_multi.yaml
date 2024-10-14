@@ -1,0 +1,6 @@
+_target_: solvers.object_detector_solver.MultiObjectDetectorSolver
+name: owlv2_object_detector
+huggingface_model_id: google/owlv2-base-patch16-ensemble
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"
+confidence_threshold: 0.2

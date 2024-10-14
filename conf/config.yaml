@@ -1,15 +1,38 @@
+# Single-needle configuration
 defaults:
   - solver: gpt4o
   - _self_
 
 basic:
   debug_mode: False
+  position_exp: False # change it to True if you want to run the positional biases experiment
   mode: single_needle
-  image_root: dataset
-  test_file_base: dataset/VHs_qa/VHs_full/single_needle
-  output_dir: output/${solver.name}_${basic.mode}/result
-  image_counts: ["oracle", 2, 3, 5, 10, 20, 50, 100]
+  image_root: dataset/coco
+  test_file_base: dataset/VHs_qa/single_needle/VHs_large
+  output_dir: output_single_needle/${solver.name}_${basic.mode}/result
+  image_counts: ["oracle", 2, 3, 5, 10]
+
 
 hydra:
   run:
-    dir: output/${solver.name}_${basic.mode}/logs
+    dir: output_single_needle/${solver.name}_${basic.mode}/logs
+
+
+# Multi-needle configuration (change N=2 and 3 based on your needs)
+# defaults:
+#   - solver: gpt4o
+#   - _self_
+
+# basic:
+#   debug_mode: False
+#   position_exp: False
+#   mode: multi_needle
+#   image_root: dataset/coco
+#   test_file_base: dataset/VHs_qa/multi_needle/multi_needle_2/
+#   output_dir: output_multineedle/multi_needle_2/${solver.name}_${basic.mode}/result
+#   image_counts: [5, 10]
+
+
+# hydra:
+#   run:
+#     dir: output_multineedle/multi_needle_2/${solver.name}_${basic.mode}/logs

@@ -8,7 +8,9 @@ This repo provides the benchmark toolkit of our proposed Visual Haystacks (VHs) 
 
 **Authors**: [Tsung-Han Wu](https://tsunghan-wu.github.io/), [Giscard Biamby](https://scholar.google.com/citations?user=s0Fof5IAAAAJ&hl=en), [Jerome Quenum](https://people.eecs.berkeley.edu/~jquenum/), [Ritwik Gupta](https://ritwikgupta.me/), [Joseph E. Gonzalez](https://people.eecs.berkeley.edu/~jegonzal/), [Trevor Darrell](https://people.eecs.berkeley.edu/~trevor/), [David M. Chan](https://dchan.cc/) at UC Berkeley. 
 
-**Benchmark Dataset**: [🤗 tsunghanwu/visual_haystacks](https://huggingface.co/datasets/tsunghanwu/visual_haystacks)
+**Visual Haystacks (VHs) Benchmark Dataset**: [🤗 tsunghanwu/visual_haystacks](https://huggingface.co/datasets/tsunghanwu/visual_haystacks)
+
+**Our Multi-Image Retrieval Augmented Generation (MIRAGE) Model**: [🤗tsunghanwu/mirage-llama3.1-8.3B](https://huggingface.co/tsunghanwu/mirage-llama3.1-8.3B), [🐙 Github Repo](https://github.com/visual-haystacks/mirage)
 
 ## :crystal_ball: What is Visual Haystacks and Why?
 
@@ -38,7 +40,7 @@ In light of these observations, we introduce MIRAGE-8.3B, a pioneering open-sour
 ## :rotating_light: Status Updates
 
 ### Recent Activities:
-- **10/18/2024:** We've published our MIRAGE codebase. Check it out here (https://github.com/visual-haystacks/mirage).
+- **10/18/2024:** We've published our MIRAGE codebase. Check it out [here](https://github.com/visual-haystacks/mirage).
 - **10/14/2024:** We've updated our datasets to enhance diversity and balance. In this version, we include GPT-4o, Gemini 1.5 Pro, Claude 3.5 Sonnet, LLaVA-Next, Qwen2-VL-7B-Instruct, Idefics-3, InternVL2-8B, Phi3-vision, mPLUG-OWL3, and LongViLA.
 - **07/18/2024:** Scripts were released for running inference using various models on the Visual Haystacks (VHs) benchmark, including GPT-4, Gemini, Claude, LLaVA, QwenVL, Idefics2, and others.
 

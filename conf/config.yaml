@@ -28,11 +28,11 @@ hydra:
 #   position_exp: False
 #   mode: multi_needle
 #   image_root: dataset/coco
-#   test_file_base: dataset/VHs_qa/multi_needle/multi_needle_2/
-#   output_dir: output_multineedle/multi_needle_2/${solver.name}_${basic.mode}/result
+#   test_file_base: dataset/VHs_qa/multi_needle/
+#   output_dir: output_multineedle/${solver.name}_${basic.mode}/result
 #   image_counts: [5, 10]
 
 
 # hydra:
 #   run:
-#     dir: output_multineedle/multi_needle_2/${solver.name}_${basic.mode}/logs
+#     dir: output_multineedle/${solver.name}_${basic.mode}/logs

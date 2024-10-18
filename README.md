@@ -8,17 +8,16 @@ This repo provides the benchmark toolkit of our proposed Visual Haystacks (VHs) 
 
 **Authors**: [Tsung-Han Wu](https://tsunghan-wu.github.io/), [Giscard Biamby](https://scholar.google.com/citations?user=s0Fof5IAAAAJ&hl=en), [Jerome Quenum](https://people.eecs.berkeley.edu/~jquenum/), [Ritwik Gupta](https://ritwikgupta.me/), [Joseph E. Gonzalez](https://people.eecs.berkeley.edu/~jegonzal/), [Trevor Darrell](https://people.eecs.berkeley.edu/~trevor/), [David M. Chan](https://dchan.cc/) at UC Berkeley. 
 
-Visual Haystacks (VHs) is a "vision-centric" Needle-In-A-Haystack (NIAH) benchmark specifically designed to evaluate the capabilities of Large Multimodal Models (LMMs) in visual retrieval and reasoning over sets of unrelated images. Unlike conventional NIAH challenges that center on artificial, text-related retrieval and understanding with limited anecdotal examples, VHs contains a much larger number of examples and focuses on "simple visual tasks", providing a more accurate reflection of LMMs' capabilities when dealing with extensive visual context.
+**Benchmark Dataset**: [🤗 tsunghanwu/visual_haystacks](https://huggingface.co/datasets/tsunghanwu/visual_haystacks)
 
-We encourage researchers and practitioners in the field of ML-CV/NLP to engage with the Visual Haystacks (VHs) benchmark. By leveraging this dataset, we can collectively push the envelope in developing LMMs that are not only proficient in text but also excel in processing and reasoning with long-context visual information. Check out VHs at [🤗 tsunghanwu/visual_haystacks](https://huggingface.co/datasets/tsunghanwu/visual_haystacks)!
+## :crystal_ball: What is Visual Haystacks and Why?
 
-## :crystal_ball: Benchmark Dataset Details
+Visual Haystacks (VHs) is a vision-centric Needle-In-A-Haystack (NIAH) benchmark designed to evaluate the capabilities of Large Multimodal Models (LMMs) in visual retrieval and reasoning tasks involving diverse and unrelated image sets. Conventional visual NIAH challenges often depend on artificial and OCR-centric scenarios, such as copy-and-paste or out-of-domain image patches, or the overlay of transcripts. These setups frequently yield near-perfect performance, providing limited insights into the practical effectiveness of models. In contrast, the VHs benchmark is carefully curated to ensure a realistic, reliable, and vision-focused evaluation. It challenges both open-source and proprietary long-context LMMs (including GPT-4o and Gemini 1.5 Pro), even with in-domain images and seemingly simple questions.
 
-VHs consists of approximately 1K binary visual question-answer pairs for sets containing differeing numbers images, with each set ranging from 1 to 10K images. Each question is about the presence of an object in some relevant images: the model needs to first retrieve these needle images in a haystack of data and then answer the corresponding question. The dataset is carefully curated to ensure that guessing or relying on common sense reasoning without viewing the image results in a 50% accuracy rate. The dataset is derived from the COCO dataset and includes two types of challenges: the single-needle challenge and the multi-needle challenge.
+VHs consists of 1K binary visual question-answer pairs for sets containing differeing numbers images, with each set ranging from 1 to 10K images. Each question is about the presence of an object in some relevant images: the model needs to first retrieve these needle images in a haystack of data and then answer the corresponding question. The dataset is carefully curated to ensure that guessing or relying on common sense reasoning without viewing the image results in a 50% accuracy rate. The dataset is derived from the COCO dataset and includes two types of challenges: the single-needle challenge and the multi-needle challenge.
 
 -   **Single-Needle Challenge**: Only a single needle image exists in the haystack of images. The question is framed as, "For the image with the anchor object, is there a target object?"
 -   **Multi-Needle Challenge**: Two or three needle images exist in the haystack of images. The question is framed as either, "For all images with the anchor object, do all of them contain the target object?" or "For all images with the anchor object, do any of them contain the target object?"
-
 ![](assets/fig1.png)
 
 ## :rocket: Interesting Applications/Findings
@@ -39,12 +38,9 @@ In light of these observations, we introduce MIRAGE-8.3B, a pioneering open-sour
 ## :rotating_light: Status Updates
 
 ### Recent Activities:
+- **10/18/2024:** We've published our MIRAGE codebase. Check it out here (https://github.com/visual-haystacks/mirage).
 - **10/14/2024:** We've updated our datasets to enhance diversity and balance. In this version, we include GPT-4o, Gemini 1.5 Pro, Claude 3.5 Sonnet, LLaVA-Next, Qwen2-VL-7B-Instruct, Idefics-3, InternVL2-8B, Phi3-vision, mPLUG-OWL3, and LongViLA.
 - **07/18/2024:** Scripts were released for running inference using various models on the Visual Haystacks (VHs) benchmark, including GPT-4, Gemini, Claude, LLaVA, QwenVL, Idefics2, and others.
-
-### Upcoming Releases and TODOs:
-- [ ] Publish the MIRAGE codebase by October 21, 2024.
-- [ ] Update logs and results for the latest model iterations.
 
 We invite collaborators working on multi-image reasoning to reach out for integrating their latest models into our repository!
 
@@ -111,7 +107,7 @@ basic:
   debug_mode: False     # debug mode or not (use only single instsace to prevent spending $$$)
   mode: single_needle   # single_needle/multi_needle
   image_root: dataset   # dataset root directory
-  test_file_base: dataset/VHs_qa/VHs_full/single_needle   # all json files are put in this directory
+  test_file_base: dataset/VHs_qa/single_needle/VHs_large   # all json files are put in this directory
   output_dir: output/${solver.name}_${basic.mode}/result  # output result directory (saving jsons)
   image_counts: ["oracle", 2, 3]    # we will read the json file named as "visual_haystack_{entry}.json"
 

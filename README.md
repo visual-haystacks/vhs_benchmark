@@ -4,7 +4,9 @@
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)  [![arXiv](https://img.shields.io/badge/arXiv-2311.16090-red)](https://arxiv.org/abs/2407.13766) 
 
-This repo provides the benchmark toolkit of our proposed Visual Haystacks (VHs) dataset: [Visual Haystacks: A Vision-Centric Needle-In-A-Haystack Benchmark](https://arxiv.org/abs/2407.13766). Check out project page [here](https://visual-haystacks.github.io/)!
+***International Conference on Learning Representations (ICLR) 2025***
+
+This repo provides the benchmark toolkit of our proposed Visual Haystacks (VHs) dataset: [Visual Haystacks: A Vision-Centric Needle-In-A-Haystack Benchmark](https://arxiv.org/abs/2407.13766). Check out the project page [here](https://visual-haystacks.github.io/)!
 
 **Authors**: [Tsung-Han Wu](https://tsunghan-wu.github.io/), [Giscard Biamby](https://scholar.google.com/citations?user=s0Fof5IAAAAJ&hl=en), [Jerome Quenum](https://people.eecs.berkeley.edu/~jquenum/), [Ritwik Gupta](https://ritwikgupta.me/), [Joseph E. Gonzalez](https://people.eecs.berkeley.edu/~jegonzal/), [Trevor Darrell](https://people.eecs.berkeley.edu/~trevor/), [David M. Chan](https://dchan.cc/) at UC Berkeley. 
 
@@ -16,7 +18,7 @@ This repo provides the benchmark toolkit of our proposed Visual Haystacks (VHs) 
 
 Visual Haystacks (VHs) is a vision-centric Needle-In-A-Haystack (NIAH) benchmark designed to evaluate the capabilities of Large Multimodal Models (LMMs) in visual retrieval and reasoning tasks involving diverse and unrelated image sets. Conventional visual NIAH challenges often depend on artificial and OCR-centric scenarios, such as copy-and-paste or out-of-domain image patches, or the overlay of transcripts. These setups frequently yield near-perfect performance, providing limited insights into the practical effectiveness of models. In contrast, the VHs benchmark is carefully curated to ensure a realistic, reliable, and vision-focused evaluation. It challenges both open-source and proprietary long-context LMMs (including GPT-4o and Gemini 1.5 Pro), even with in-domain images and seemingly simple questions.
 
-VHs consists of 1K binary visual question-answer pairs for sets containing differeing numbers images, with each set ranging from 1 to 10K images. Each question is about the presence of an object in some relevant images: the model needs to first retrieve these needle images in a haystack of data and then answer the corresponding question. The dataset is carefully curated to ensure that guessing or relying on common sense reasoning without viewing the image results in a 50% accuracy rate. The dataset is derived from the COCO dataset and includes two types of challenges: the single-needle challenge and the multi-needle challenge.
+VHs consists of 1K binary visual question-answer pairs for sets containing different numbers of images, with each set ranging from 1 to 10K images. Each question is about the presence of an object in some relevant images: the model needs to first retrieve these needle images in a haystack of data and then answer the corresponding question. The dataset is carefully curated to ensure that guessing or relying on common sense reasoning without viewing the image results in a 50% accuracy rate. The dataset is derived from the COCO dataset and includes two types of challenges: the single-needle challenge and the multi-needle challenge.
 
 -   **Single-Needle Challenge**: Only a single needle image exists in the haystack of images. The question is framed as, "For the image with the anchor object, is there a target object?"
 -   **Multi-Needle Challenge**: Two or three needle images exist in the haystack of images. The question is framed as either, "For all images with the anchor object, do all of them contain the target object?" or "For all images with the anchor object, do any of them contain the target object?"
@@ -125,7 +127,8 @@ If you use our work or our implementation in this repo, or find them helpful, pl
 @article{wu2024visual,
   title={Visual Haystacks: A Vision-Centric Needle-In-A-Haystack Benchmark},
   author={Wu, Tsung-Han and Biamby, Giscard and and Quenum, Jerome and Gupta, Ritwik and Gonzalez, Joseph E and Darrell, Trevor and Chan, David M},
-  journal={arXiv preprint arXiv:2407.13766},
-  year={2024}
+  journal={International Conference on Learning Representations},
+  year={2025},
+  url={https://arxiv.org/abs/2407.13766}
 }
 ```

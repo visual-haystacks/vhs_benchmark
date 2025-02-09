@@ -124,11 +124,12 @@ hydra:
 
 If you use our work or our implementation in this repo, or find them helpful, please consider giving a citation.
 ```
-@article{wu2024visual,
-  title={Visual Haystacks: A Vision-Centric Needle-In-A-Haystack Benchmark},
-  author={Wu, Tsung-Han and Biamby, Giscard and and Quenum, Jerome and Gupta, Ritwik and Gonzalez, Joseph E and Darrell, Trevor and Chan, David M},
-  journal={International Conference on Learning Representations},
-  year={2025},
-  url={https://arxiv.org/abs/2407.13766}
+@inproceedings{
+    wu2025visual,
+    title={Visual Haystacks: A Vision-Centric Needle-In-A-Haystack Benchmark},
+    author={Tsung-Han Wu and Giscard Biamby and Jerome Quenum and Ritwik Gupta and Joseph E. Gonzalez and Trevor Darrell and David Chan},
+    booktitle={The Thirteenth International Conference on Learning Representations},
+    year={2025},
+    url={https://openreview.net/forum?id=9JCNPFL1f9}
 }
 ```

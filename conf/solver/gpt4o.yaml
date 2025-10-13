@@ -6,3 +6,5 @@ organization: "***"  # replace with a specific OpenAI organization ID if require
 api_key: "***"                # replace with your OpenAI API key
 image_root: "${basic.image_root}"
 debug_mode: "${basic.debug_mode}"
+
+#organization: "***"  # replace with a specific OpenAI organization ID if required

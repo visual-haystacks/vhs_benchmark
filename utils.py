@@ -32,10 +32,22 @@ class CostMeter:
             elif "claude-3-haiku" in model_name:
                 self._prompt_tokens_cost = 0.25
                 self._completion_tokens_cost = 1.25
+            elif "gpt-5" in model_name:
+                self._prompt_tokens_cost = 1.25
+                self._completion_tokens_cost = 10
+            elif "claude-sonnet-4" in model_name:
+                self._prompt_tokens_cost = 3
+                self._completion_tokens_cost = 15
+            elif "grok-4" in model_name:
+                self._prompt_tokens_cost = 3
+                self._completion_tokens_cost = 15
+
+
 
     def update(self, usage) -> None:
         self._prompt_tokens_used += usage.prompt_tokens if usage else 0
         self._completion_tokens_used += usage.completion_tokens if usage else 0
+
 
     @property
     def cost(self) -> float:

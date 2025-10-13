@@ -54,4 +54,4 @@ class LLaVANextSolver(Solver):
         print("Generated text: ", generated_text)
         # Hack: remove the prefix question
         generated_text = generated_text.split("[/INST]")[1]
-        return generated_text, None
+        return generated_text, None, None, None

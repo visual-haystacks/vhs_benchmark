@@ -58,7 +58,7 @@ class ClaudeSolver(Solver):
                 print(f"Error occured when calling LLM API: {e}")
                 time.sleep(60)
 
-        return pred_ans, None
+        return pred_ans, None, None, None
 
     def postprocessing(self):
         logging.info(f"Total cost: ${self.claude3_usage.cost:.2f} 💸💸💸")

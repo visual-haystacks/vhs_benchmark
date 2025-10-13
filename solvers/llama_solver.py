@@ -47,4 +47,4 @@ class LLamaSolver(Solver):
             )
             response = outputs[0][input_ids.shape[-1] :]
 
-        return self.tokenizer.decode(response, skip_special_tokens=True), None
+        return self.tokenizer.decode(response, skip_special_tokens=True), None, None, None

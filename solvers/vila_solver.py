@@ -86,4 +86,4 @@ class ViLASolver(Solver):
             .strip()
         )
 
-        return generated_text, None
+        return generated_text, None, None, None

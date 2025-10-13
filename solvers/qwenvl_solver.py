@@ -51,4 +51,4 @@ class QwenVLSolver(Solver):
             max_new_tokens=512,
             clean_up_tokenization_spaces=False,
         )[0]
-        return response, None
+        return response, None, None, None

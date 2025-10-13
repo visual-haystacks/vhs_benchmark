@@ -1,6 +1,6 @@
 # Single-needle configuration
 defaults:
-  - solver: gpt4o
+  - solver: grok4
   - _self_
 
 basic:
@@ -8,7 +8,7 @@ basic:
   position_exp: False # change it to True if you want to run the positional biases experiment
   mode: single_needle
   image_root: dataset/coco
-  test_file_base: dataset/VHs_qa/single_needle/VHs_large
+  test_file_base: dataset/VHs_qa/single_needle/VHs_small
   output_dir: output_single_needle/${solver.name}_${basic.mode}/result
   image_counts: ["oracle", 2, 3, 5, 10]
 

@@ -30,4 +30,4 @@ class InternVLSolver(Solver):
         real_prompt += prompt
 
         response = self.pipeline((real_prompt, images))
-        return response.text, None
+        return response.text, None, None, None

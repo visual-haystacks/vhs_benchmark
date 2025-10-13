@@ -109,14 +109,17 @@ class Solver:
 
             # use the right image root directory
             image_paths = [os.path.join(self.image_root, img) for img in image_lists]
-            response, log_msg = self.generate(
+            ans, log_msg, reasoning, resp = self.generate(
                 prompt, image_paths
-            )  # Adjusted to use self.generate
+            )  
+            # Adjusted to use self.generate
             # Store the result in the entry
             entry["result"] = {
                 "image_paths": image_lists,
-                "response": response,
+                "response": ans,
                 "log": log_msg,
+                "reasoning": reasoning,
+                "all_metadata": resp,
             }
             with open(output_fname, "w") as f:
                 json.dump(entry, f, indent=2)

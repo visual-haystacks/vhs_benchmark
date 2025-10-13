@@ -83,9 +83,9 @@ class SingleObjectDetectorSolver(Solver):
             [needle_img], target_object, batch_size=1
         )
         if max(target_detected_results) < self.config.get("confidence_threshold", 0.2):
-            return "No", None
+            return "No", None, None, None
         else:
-            return "Yes", None
+            return "Yes", None, None, None
 
 
 class MultiObjectDetectorSolver(Solver):
@@ -177,15 +177,15 @@ class MultiObjectDetectorSolver(Solver):
                 np.array(target_detected_results)
                 < self.config.get("confidence_threshold", 0.2)
             ):
-                return "No", None
+                return "No", None, None, None
             else:
-                return "Yes", None
+                return "Yes", None, None, None
         # Case 2: Any
         else:
             if np.any(
                 np.array(target_detected_results)
                 > self.config.get("confidence_threshold", 0.2)
             ):
-                return "Yes", None
+                return "Yes", None, None, None
             else:
-                return "No", None
+                return "No", None, None, None

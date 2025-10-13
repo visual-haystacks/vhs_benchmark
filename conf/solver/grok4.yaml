@@ -1,0 +1,7 @@
+_target_: solvers.openrouter_solver_reasoning.OpenrouterSolver
+name: x-ai/grok-4
+model: x-ai/grok-4
+low_res_mode: False
+api_key: "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"                # replace with your OpenRouter API key
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"

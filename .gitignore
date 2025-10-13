@@ -77,6 +77,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+.ipynb
 
 # IPython
 profile_default/
@@ -163,3 +164,4 @@ cython_debug/
 
 output/
 dataset/
+output_single_needle/

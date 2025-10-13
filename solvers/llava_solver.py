@@ -40,4 +40,4 @@ class LLaVASolver(Solver):
         )[0]
         # Hack: remove the prefix question
         generated_text = generated_text.split("ASSISTANT:")[1]
-        return generated_text, None
+        return generated_text, None, None, None

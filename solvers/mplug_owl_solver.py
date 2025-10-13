@@ -38,4 +38,4 @@ class MPLUGSolver(Solver):
         generated_text = self.model.generate(
             **inputs, tokenizer=self.tokenizer, max_new_tokens=512, decode_text=True
         )[0]
-        return generated_text, None
+        return generated_text, None, None, None

@@ -41,4 +41,4 @@ class IDEFICSSolver(Solver):
         )[0]
         # Hack: remove the prefix question
         generated_text = generated_text.split("Assistant:")[1]
-        return generated_text, None
+        return generated_text, None, None, None

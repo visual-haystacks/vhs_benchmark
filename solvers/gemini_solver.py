@@ -5,6 +5,7 @@ from PIL import Image
 from utils import CostMeter
 import logging
 import time
+import yaml
 
 
 # We follow the official example jupyter notebook to put image after text
@@ -14,7 +15,9 @@ class GeminiSolver(Solver):
         super().__init__(image_root, debug_mode)
         self.solver_name = gemini_config.get("name", "Gemini-1.5-pro")
         self.gemini_config = gemini_config
-        genai.configure(api_key=gemini_config.get("api_key"))
+        with open(gemini_config.get("api_yaml"), 'r') as api:
+            key = yaml.safe_load(api)[gemini_config.get("api_key")]
+        genai.configure(api_key=key)
         """
         for m in genai.list_models():
             if 'generateContent' in m.supported_generation_methods:

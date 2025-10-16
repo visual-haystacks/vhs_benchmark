@@ -1,6 +1,7 @@
 _target_: solvers.gemini_solver.GeminiSolver
 name: gemini_v1.5_pro_001
 model: gemini-1.5-pro-001 
-api_key: "***"  # replace with your GCP API key
+api_key: gcp
+api_yaml: "${basic.api_yaml}"
 image_root: "${basic.image_root}"
 debug_mode: "${basic.debug_mode}"

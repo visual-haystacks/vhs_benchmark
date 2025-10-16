@@ -3,6 +3,7 @@ from .base_solver import Solver, encode_image
 from utils import CostMeter
 import time
 import logging
+import yaml
 
 
 class OpenrouterSolver(Solver):
@@ -10,10 +11,12 @@ class OpenrouterSolver(Solver):
         super().__init__(image_root, debug_mode)
         self.solver_name = orouter_config.get("name", "Openrouter_Solver")
         self.orouter_config = orouter_config
+        with open(orouter_config.get("api_yaml"), 'r') as api:
+            key = yaml.safe_load(api)[orouter_config.get("api_key")]
 
         self.client = OpenAI(
             base_url="https://openrouter.ai/api/v1",
-            api_key=orouter_config.get("api_key"),
+            api_key=key,
             default_headers={
                 "HTTP-Referer": orouter_config.get("referer", ""),
                 "X-Title": orouter_config.get("title", "Eval Harness"),

@@ -165,3 +165,7 @@ cython_debug/
 output/
 dataset/
 output_single_needle/
+
+# API
+
+conf/api.yaml

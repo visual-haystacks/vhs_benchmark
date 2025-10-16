@@ -4,6 +4,7 @@ from utils import CostMeter
 from types import SimpleNamespace
 import time
 import logging
+import yaml
 
 
 class ClaudeSolver(Solver):
@@ -11,7 +12,9 @@ class ClaudeSolver(Solver):
         super().__init__(image_root, debug_mode)
         self.solver_name = config.get("name", "Claude-3")
         self.config = config
-        self.client = anthropic.Anthropic(api_key=config.get("api_key"))
+        with open(config.get("api_yaml"), 'r') as api:
+            key = yaml.safe_load(api)[config.get("api_key")]
+        self.client = anthropic.Anthropic(api_key=key)
 
     def preprocessing(self):
         self.claude3_usage = CostMeter(

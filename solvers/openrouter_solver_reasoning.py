@@ -5,6 +5,7 @@ import time
 import logging
 import requests
 import json
+import yaml
 
 
 class OpenrouterSolver(Solver):
@@ -13,10 +14,13 @@ class OpenrouterSolver(Solver):
         self.solver_name = orouter_config.get("name")
         self.orouter_config = orouter_config
         self.url = "https://openrouter.ai/api/v1/chat/completions"
+        with open(orouter_config.get("api_yaml"), 'r') as api:
+            key = yaml.safe_load(api)[orouter_config.get("api_key")]
         self.headers={
-            'Authorization': f"Bearer {orouter_config.get('api_key')}",
+            'Authorization': f"Bearer {key}",
             'Content-Type': 'application/json',
         }
+        
 
     def preprocessing(self):
         self.openai_usage = CostMeter(self.orouter_config.get("model"))

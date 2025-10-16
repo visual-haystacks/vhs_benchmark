@@ -10,6 +10,7 @@ basic:
   image_root: dataset/coco
   test_file_base: dataset/VHs_qa/single_needle/VHs_small
   output_dir: output_single_needle/${solver.name}_${basic.mode}/result
+  api_yaml: conf/api.yaml
   image_counts: ["oracle", 2, 3, 5, 10]
 
 

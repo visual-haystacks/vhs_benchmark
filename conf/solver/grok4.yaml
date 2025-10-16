@@ -2,6 +2,7 @@ _target_: solvers.openrouter_solver_reasoning.OpenrouterSolver
 name: x-ai/grok-4
 model: x-ai/grok-4
 low_res_mode: False
-api_key: "sk-or-***"                # replace with your OpenRouter API key
+api_key: openrouter
+api_yaml: "${basic.api_yaml}"
 image_root: "${basic.image_root}"
 debug_mode: "${basic.debug_mode}"

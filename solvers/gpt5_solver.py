@@ -3,19 +3,18 @@ from .base_solver import Solver, encode_image
 from utils import CostMeter
 import time
 import logging
-
+import yaml
 
 class GPT5Solver(Solver):
     def __init__(self, image_root, debug_mode, **gpt5_config):
         super().__init__(image_root, debug_mode)
         self.solver_name = gpt5_config.get("name", "GPT-5")
         self.gpt_config = gpt5_config
+        with open(gpt5_config.get("api_yaml"), 'r') as api:
+            key = yaml.safe_load(api)[gpt5_config.get("api_key")]
         self.client = OpenAI(
-            api_key=gpt5_config.get("api_key"),
-            organization=gpt5_config.get("organization", None),
+            api_key=key
         )
-
-    
 
     def preprocessing(self):
         self.openai_usage = CostMeter(self.gpt_config.get("model", "gpt-5"))
@@ -46,8 +45,6 @@ class GPT5Solver(Solver):
         metadata = ""
         for _ in range(5):
             try:
-                # use responses api - provides reasoning trace
-
                 response = self.client.responses.create(
                     model=self.gpt_config.get("model", "gpt-5"),
                     input=[{"role": "user", "content": content}],
@@ -56,12 +53,10 @@ class GPT5Solver(Solver):
                         "summary": "detailed"
                     }
                 )
-                self.openai_usage.update(response.usage)
+                self.openai_usage.update_responses(response.model_dump()["usage"])
                 pred_ans = response.output_text
                 reasoning = response.model_dump()["output"][0]["summary"]
                 metadata = response.model_dump()
-
-                
                 break
             except Exception as e:
                 logging.error(f"Error occured when calling LLM API: {e}")

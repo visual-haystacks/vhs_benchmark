@@ -3,15 +3,18 @@ from .base_solver import Solver, encode_image
 from utils import CostMeter
 import time
 import logging
-
+import yaml
 
 class GPT4OSolver(Solver):
     def __init__(self, image_root, debug_mode, **gpt4_config):
         super().__init__(image_root, debug_mode)
         self.solver_name = gpt4_config.get("name", "GPT-4o")
         self.gpt_config = gpt4_config
+
+        with open(gpt4_config.get("api_yaml"), 'r') as api:
+            key = yaml.safe_load(api)[gpt4_config.get("api_key")]
         self.client = OpenAI(
-            api_key=gpt4_config.get("api_key"),
+            api_key=key,
             organization=gpt4_config.get("organization", None),
         )
 
@@ -54,7 +57,7 @@ class GPT4OSolver(Solver):
                 logging.error(f"Error occured when calling LLM API: {e}")
                 time.sleep(60)
 
-        return pred_ans, None
+        return pred_ans, None, None, None
 
     def postprocessing(self):
         logging.info(f"Total cost: ${self.openai_usage.cost:.2f} 💸💸💸")

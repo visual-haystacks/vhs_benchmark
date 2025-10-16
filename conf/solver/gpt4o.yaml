@@ -3,6 +3,9 @@ name: gpt-4o-2024-05-13
 low_res_mode: False
 model: "gpt-4o-2024-05-13"
 organization: "***"  # replace with a specific OpenAI organization ID if required
-api_key: "***"                # replace with your OpenAI API key
+api_key: openai
+api_yaml: "${basic.api_yaml}"
 image_root: "${basic.image_root}"
 debug_mode: "${basic.debug_mode}"
+
+#organization: "***"  # replace with a specific OpenAI organization ID if required

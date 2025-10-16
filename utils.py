@@ -12,6 +12,7 @@ class CostMeter:
     def __init__(self, model_name, costs=None) -> None:
         self._prompt_tokens_used = 0
         self._completion_tokens_used = 0
+        self._cached_tokens_used = 0
         if costs is not None:
             self._prompt_tokens_cost = costs["input_token_cost"]
             self._completion_tokens_cost = costs["output_token_cost"]
@@ -32,16 +33,35 @@ class CostMeter:
             elif "claude-3-haiku" in model_name:
                 self._prompt_tokens_cost = 0.25
                 self._completion_tokens_cost = 1.25
+            elif "gpt-5" in model_name:
+                self._prompt_tokens_cost = 1.25
+                self._completion_tokens_cost = 10
+                self._cached_tokens_cost = 0.125
+            elif "claude-sonnet-4" in model_name:
+                self._prompt_tokens_cost = 3
+                self._completion_tokens_cost = 15
+            elif "grok-4" in model_name:
+                self._prompt_tokens_cost = 3
+                self._completion_tokens_cost = 15
+
+
 
     def update(self, usage) -> None:
         self._prompt_tokens_used += usage.prompt_tokens if usage else 0
         self._completion_tokens_used += usage.completion_tokens if usage else 0
 
+    def update_responses(self, usage) -> None:
+        self._prompt_tokens_used += usage["input_tokens"] - usage["input_tokens_details"]["cached_tokens"] if usage else 0
+        self._cached_tokens_used += usage["input_tokens_details"]["cached_tokens"] if usage else 0
+        self._completion_tokens_used += usage["output_tokens"] if usage else 0
+
+
     @property
     def cost(self) -> float:
         input_cost = self._prompt_tokens_used * self._prompt_tokens_cost * 1e-6
         output_cost = self._completion_tokens_used * self._completion_tokens_cost * 1e-6
-        return input_cost + output_cost
+        cache_cost = self._cached_tokens_used * self._cached_tokens_cost * 1e-6
+        return input_cost + output_cost + cache_cost
 
 
 def create_directory(directory):

@@ -1,6 +1,7 @@
 _target_: solvers.claude_solver.ClaudeSolver
 name: claude35_connet
 model: claude-3-5-sonnet-20240620
-api_key: "sk-ant-api***"                # replace with your Anthropic API key
+api_key: anthropic
+api_yaml: "${basic.api_yaml}"
 image_root: "${basic.image_root}"
 debug_mode: "${basic.debug_mode}"

@@ -4,6 +4,7 @@ from utils import CostMeter
 from types import SimpleNamespace
 import time
 import logging
+import yaml
 
 
 class ClaudeSolver(Solver):
@@ -11,7 +12,9 @@ class ClaudeSolver(Solver):
         super().__init__(image_root, debug_mode)
         self.solver_name = config.get("name", "Claude-3")
         self.config = config
-        self.client = anthropic.Anthropic(api_key=config.get("api_key"))
+        with open(config.get("api_yaml"), 'r') as api:
+            key = yaml.safe_load(api)[config.get("api_key")]
+        self.client = anthropic.Anthropic(api_key=key)
 
     def preprocessing(self):
         self.claude3_usage = CostMeter(
@@ -58,7 +61,7 @@ class ClaudeSolver(Solver):
                 print(f"Error occured when calling LLM API: {e}")
                 time.sleep(60)
 
-        return pred_ans, None
+        return pred_ans, None, None, None
 
     def postprocessing(self):
         logging.info(f"Total cost: ${self.claude3_usage.cost:.2f} 💸💸💸")

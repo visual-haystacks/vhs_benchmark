@@ -1,0 +1,4 @@
+anthropic: “sk-ant-api***” # your Anthropic API key
+openrouter: “sk-or-v1-***” # your Openrouter API key
+gcp: “***” # your GCP API key
+openai: “sk-proj-***” # your OpenAI key

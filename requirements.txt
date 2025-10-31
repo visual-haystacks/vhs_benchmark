@@ -1,5 +1,5 @@
 # Important libraries with versions
-# lmdeploy
+lmdeploy
 torch
 torchvision
 transformers~=4.45

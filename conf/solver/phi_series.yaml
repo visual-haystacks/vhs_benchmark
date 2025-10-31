@@ -1,0 +1,12 @@
+# _target_: solvers.vllm_solver.VLLMSolver
+# name: Phi3-vision-128k-instruct
+# huggingface_model_id: microsoft/Phi-3-vision-128k-instruct
+# image_root: "${basic.image_root}"
+# debug_mode: "${basic.debug_mode}"
+
+# Phi4-multimodal-instruct
+_target_: solvers.vllm_solver.VLLMSolver
+name: Phi4-multimodal-instruct
+huggingface_model_id: microsoft/Phi-4-multimodal-instruct
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"

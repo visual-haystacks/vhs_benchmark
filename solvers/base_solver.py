@@ -16,6 +16,8 @@ class Solver:
         self.solver_name = "Base Solver"
         self.image_root = image_root
         self.debug_mode = debug_mode
+        self.max_new_tokens = 512
+        self.temperature = 0.0
 
     def preprocessing(self):
         # Any preprocessing steps can be added here

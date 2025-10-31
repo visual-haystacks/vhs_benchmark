@@ -1,0 +1,15 @@
+# LLaVA-v1.5-7B
+_target_: solvers.vllm_solver.VLLMSolver
+name: LLaVA-v1.5-7B
+huggingface_model_id: llava-hf/llava-1.5-7b-hf
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"
+
+# LLaVA-Next
+_target_: solvers.vllm_solver.VLLMSolver
+name: LLaVA-Next
+huggingface_model_id: llava-hf/llava-v1.6-mistral-7b-hf
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"
+
+# LLaVA OneVision

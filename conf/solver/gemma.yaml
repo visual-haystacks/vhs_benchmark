@@ -1,0 +1,6 @@
+_target_: solvers.vllm_solver.VLLMSolver
+name: gemma-3-12b-it
+huggingface_model_id: google/gemma-3-12b-it
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"
+tensor_parallel_size: 1

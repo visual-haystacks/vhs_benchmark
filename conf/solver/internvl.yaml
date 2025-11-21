@@ -1,5 +1,6 @@
-_target_: solvers.internvl_solver.InternVLSolver
-name: internvl2_8b_new
+# _target_: solvers.internvl_solver.InternVLSolver
+_target_: solvers.vllm_solver.VLLMSolver
+name: internvl2_8b
 huggingface_model_id: "OpenGVLab/InternVL2-8B"
 image_root: "${basic.image_root}"
 debug_mode: "${basic.debug_mode}"

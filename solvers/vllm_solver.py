@@ -2,9 +2,8 @@ import json
 import random
 import os
 from vllm import LLM, SamplingParams
-# from vllm.sampling_params import GuidedDecodingParams
-from transformers import AutoProcessor
 from .base_solver import Solver
+from PIL import Image
 
 
 class VLLMSolver(Solver):
@@ -17,25 +16,24 @@ class VLLMSolver(Solver):
             tensor_parallel_size=config.get("tensor_parallel_size", 1),
             trust_remote_code=True,
             gpu_memory_utilization=0.9,
+            disable_mm_preprocessor_cache=True
         )
-        self.processor = AutoProcessor.from_pretrained(self.huggingface_model_id)
         self.sampling_params = SamplingParams(
             max_tokens=config.get("max_new_tokens", self.max_new_tokens),
             temperature=config.get("temperature", self.temperature),
         )
-        self.batch_size = config.get("batch_size", 20)
+        self.batch_size = config.get("batch_size", 10)
 
     def prepare_inputs_for_vllm(self, prompt, image_lists):
-        conversation = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
-        for image_path in image_lists:
-            conversation[0]["content"].append({"type": "image", "image": image_path})
-        text = self.processor.apply_chat_template(conversation, tokenize=False, add_generation_prompt=True)
-        mm_data = {}
-        mm_data['image'] = [os.path.join(self.image_root, img) for img in image_lists]
-        return {
-            'prompt': text,
-            'multi_modal_data': mm_data,
-        }
+        v_placeholder = [{"type": "image_pil", "image_pil": Image.open(os.path.join(self.image_root, image)).convert("RGB")} for image in image_lists]
+        return [
+            {"role": "user",
+                "content": [
+                    *v_placeholder,
+                    {"type": "text", "text": prompt},
+                ]
+            }
+        ]
 
     def run_fast(self, test_file, output_dir):
         self.preprocessing()
@@ -51,25 +49,31 @@ class VLLMSolver(Solver):
             )
             image_lists = entry["pos_image"] + entry["neg_image"]
             random.shuffle(image_lists)
-            mm_data = self.prepare_inputs_for_vllm(prompt, image_lists)
-            inputs.append(mm_data)
+            inputs.append(self.prepare_inputs_for_vllm(prompt, image_lists))
         
         # Do batch generation to prevent memory issue in preprocessing
         out_texts = [None] * len(test_data)
         for start in range(0, len(inputs), self.batch_size):
             chunk = inputs[start:start+self.batch_size]
-            outs = self.model.generate(chunk, sampling_params=self.sampling_params)
+            outs = self.model.chat(chunk, sampling_params=self.sampling_params)
             for idx, output in enumerate(outs):
                 out_texts[start+idx] = output.outputs[0].text
 
         for idx, generated_text in enumerate(out_texts):
             output_fname = os.path.join(output_dir, f"{idx:03d}.json")
+            # Temporarily solution for Qwen3-VL-8B-Thinking
+            if "</think>" in generated_text:
+                reasoning, generated_text = generated_text.split("</think>")
+                reasoning = reasoning.strip()
+                generated_text = generated_text.strip()
+            else:
+                reasoning = ""
             entry = test_data[idx]
             entry["result"] = {
-                "image_paths": inputs[idx]['multi_modal_data']['image'],
+                "image_paths": inputs[idx]['image_paths'],
                 "response": generated_text,
                 "log": "",
-                "reasoning": "",
+                "reasoning": reasoning,
                 "all_metadata": "",
             }
             with open(output_fname, "w") as f:

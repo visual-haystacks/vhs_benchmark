@@ -13,15 +13,15 @@
 # debug_mode: "${basic.debug_mode}"
 
 # Qwen3-VL-8B-Instruct
-_target_: solvers.vllm_solver.VLLMSolver
-name: Qwen3-VL-8B-Instruct
-huggingface_model_id: Qwen/Qwen3-VL-8B-Instruct
-image_root: "${basic.image_root}"
-debug_mode: "${basic.debug_mode}"
-
-# Qwen3-VL-8B-Thinking
 # _target_: solvers.vllm_solver.VLLMSolver
-# name: Qwen3-VL-8B-Thinking
-# huggingface_model_id: Qwen/Qwen3-VL-8B-Thinking
+# name: Qwen3-VL-8B-Instruct
+# huggingface_model_id: Qwen/Qwen3-VL-8B-Instruct
 # image_root: "${basic.image_root}"
 # debug_mode: "${basic.debug_mode}"
+
+# Qwen3-VL-8B-Thinking
+_target_: solvers.vllm_solver.VLLMSolver
+name: Qwen3-VL-8B-Thinking
+huggingface_model_id: Qwen/Qwen3-VL-8B-Thinking
+image_root: "${basic.image_root}"
+debug_mode: "${basic.debug_mode}"

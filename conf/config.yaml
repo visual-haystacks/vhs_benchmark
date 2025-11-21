@@ -1,6 +1,6 @@
 # Single-needle configuration
 defaults:
-  - solver: phi_series
+  - solver: qwen_series
   - _self_
 
 basic:
@@ -11,7 +11,7 @@ basic:
   test_file_base: dataset/VHs_qa/single_needle/VHs_large
   output_dir: output_single_needle/${solver.name}_${basic.mode}/result
   api_yaml: conf/api.yaml
-  image_counts: ["oracle", 2, 3, 5, 10]
+  image_counts: [5]
 
 
 hydra:
